@@ -12,7 +12,6 @@ resource "github_branch_default" "default" {
   branch     = github_branch.main.branch
 }
 
-
 resource "github_branch_protection" "main" {
   repository_id = github_repository.github_repos.name
   pattern       = github_branch.main.branch
