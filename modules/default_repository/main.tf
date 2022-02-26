@@ -1,6 +1,9 @@
 #tfsec:ignore:github-repositories-private
 resource "github_repository" "repository" {
   name = var.repository_name
+
+  delete_branch_on_merge = true
+  vulnerability_alerts   = true
 }
 
 resource "github_branch" "default_branch" {
