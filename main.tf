@@ -16,7 +16,7 @@ resource "github_branch_protection" "main" {
   repository_id = github_repository.github_repos.name
   pattern       = github_branch.main.branch
 
-  enforce_admins = true
+  enforce_admins = false
 
   required_pull_request_reviews {
     dismiss_stale_reviews = true
