@@ -1,3 +1,4 @@
+#tfsec:ignore:github-repositories-private
 resource "github_repository" "repository" {
   name = var.repository_name
 }
