@@ -1,24 +1,26 @@
-resource "github_repository" "github_repos" {
-  name = "github_repos"
+module "github_repos" {
+    source = "./modules/default_repository"
+
+    repository_name = "github_repos"
+    default_branch  = "main"
 }
 
-resource "github_branch" "main" {
-  repository = github_repository.github_repos.name
-  branch     = "main"
+moved {
+    from = github_repository.github_repos
+    to   = module.github_repos.github_repository.repository
 }
 
-resource "github_branch_default" "default" {
-  repository = github_repository.github_repos.name
-  branch     = github_branch.main.branch
+moved {
+    from = github_branch.main
+    to   = module.github_repos.github_branch.default_branch
 }
 
-resource "github_branch_protection" "main" {
-  repository_id = github_repository.github_repos.name
-  pattern       = github_branch.main.branch
+moved {
+    from = github_branch_default.default
+    to   = module.github_repos.github_branch_default.default_branch
+}
 
-  enforce_admins = false
-
-  required_pull_request_reviews {
-    dismiss_stale_reviews = true
-  }
+moved {
+    from = github_branch_protection.main
+    to   = module.github_repos.github_branch_protection.default_branch_protection
 }
